@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projetfinsemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Application">
+    <Key>
+      <PropertyRef Name="idapp" />
+    </Key>
+    <Property Name="idapp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idprop" Type="Int32" Nullable="false" />
+    <Property Name="nomapp" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date_creation" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="nombre_telechargement" Type="Int32" />
+    <Property Name="idcategorie" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Review" Relationship="Self.fk_app_rev" FromRole="Application" ToRole="Review" />
+    <NavigationProperty Name="BIBLIO" Relationship="Self.fk_bib_idapp" FromRole="Application" ToRole="BIBLIO" />
+    <NavigationProperty Name="Categorie" Relationship="Self.FK_cat" FromRole="Application" ToRole="Categorie" />
+    <NavigationProperty Name="User" Relationship="Self.FK_propriétaire" FromRole="Application" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="idcat" />
+    </Key>
+    <Property Name="idcat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="desc" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Application" Relationship="Self.FK_cat" FromRole="Categorie" ToRole="Application" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="idrev" />
+    </Key>
+    <Property Name="idrev" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idapp" Type="Int32" Nullable="false" />
+    <Property Name="idprop" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="rate" Type="Int32" />
+    <NavigationProperty Name="Application" Relationship="Self.fk_app_rev" FromRole="Review" ToRole="Application" />
+    <NavigationProperty Name="User" Relationship="Self.fk_prop_rev" FromRole="Review" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date_naissance" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="role" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Application" Relationship="Self.FK_propriétaire" FromRole="User" ToRole="Application" />
+    <NavigationProperty Name="Review" Relationship="Self.fk_prop_rev" FromRole="User" ToRole="Review" />
+    <NavigationProperty Name="BIBLIO" Relationship="Self.fk_bib_idprop" FromRole="User" ToRole="BIBLIO" />
+  </EntityType>
+  <EntityType Name="BIBLIO">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="idprop" />
+      <PropertyRef Name="idapp" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idprop" Type="Int32" Nullable="false" />
+    <Property Name="idapp" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Application" Relationship="Self.fk_bib_idapp" FromRole="BIBLIO" ToRole="Application" />
+    <NavigationProperty Name="User" Relationship="Self.fk_bib_idprop" FromRole="BIBLIO" ToRole="User" />
+  </EntityType>
+  <Association Name="fk_app_rev">
+    <End Role="Application" Type="Self.Application" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Application">
+        <PropertyRef Name="idapp" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="idapp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_bib_idapp">
+    <End Role="Application" Type="Self.Application" Multiplicity="1" />
+    <End Role="BIBLIO" Type="Self.BIBLIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Application">
+        <PropertyRef Name="idapp" />
+      </Principal>
+      <Dependent Role="BIBLIO">
+        <PropertyRef Name="idapp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cat">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="1" />
+    <End Role="Application" Type="Self.Application" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="idcat" />
+      </Principal>
+      <Dependent Role="Application">
+        <PropertyRef Name="idcategorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_propriétaire">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Application" Type="Self.Application" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Application">
+        <PropertyRef Name="idprop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_prop_rev">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="idprop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_bib_idprop">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="BIBLIO" Type="Self.BIBLIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BIBLIO">
+        <PropertyRef Name="idprop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projetfinsemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Application" EntityType="Self.Application" />
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" />
+    <EntitySet Name="Review" EntityType="Self.Review" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <EntitySet Name="BIBLIO" EntityType="Self.BIBLIO" />
+    <AssociationSet Name="fk_app_rev" Association="Self.fk_app_rev">
+      <End Role="Application" EntitySet="Application" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="fk_bib_idapp" Association="Self.fk_bib_idapp">
+      <End Role="Application" EntitySet="Application" />
+      <End Role="BIBLIO" EntitySet="BIBLIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cat" Association="Self.FK_cat">
+      <End Role="Categorie" EntitySet="Categorie" />
+      <End Role="Application" EntitySet="Application" />
+    </AssociationSet>
+    <AssociationSet Name="FK_propriétaire" Association="Self.FK_propriétaire">
+      <End Role="User" EntitySet="User" />
+      <End Role="Application" EntitySet="Application" />
+    </AssociationSet>
+    <AssociationSet Name="fk_prop_rev" Association="Self.fk_prop_rev">
+      <End Role="User" EntitySet="User" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="fk_bib_idprop" Association="Self.fk_bib_idprop">
+      <End Role="User" EntitySet="User" />
+      <End Role="BIBLIO" EntitySet="BIBLIO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

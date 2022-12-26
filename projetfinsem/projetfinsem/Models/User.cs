@@ -11,7 +11,9 @@ namespace projetfinsem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Runtime.CompilerServices;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,11 +23,15 @@ namespace projetfinsem.Models
             this.Review = new HashSet<Review>();
             this.BIBLIO = new HashSet<BIBLIO>();
         }
-    
         public int id { get; set; }
+        [Required]
         public string nom { get; set; }
+        [Required]
         public string prenom { get; set; }
+        [Required]
         public string username { get; set; }
+        [StringLength(64,MinimumLength =8)]
+        [Required]
         public string password { get; set; }
         public System.DateTime date_naissance { get; set; }
         public string role { get; set; }
