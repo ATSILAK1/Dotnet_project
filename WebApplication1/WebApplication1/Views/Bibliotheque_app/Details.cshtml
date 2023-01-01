@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.Bibliotheque_app
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bibliotheque_app</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.date_telechargement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_telechargement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bibliotheque.id_bib)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bibliotheque.id_bib)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u_application.nom_app)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u_application.nom_app)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.review
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>review</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u_application.nom_app)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u_application.nom_app)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utilisateur.nom_utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utilisateur.nom_utilisateur)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_review }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

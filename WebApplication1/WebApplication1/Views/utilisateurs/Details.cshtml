@@ -1,0 +1,74 @@
+﻿@model WebApplication1.Models.utilisateur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>utilisateur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_utilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_naissance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_naissance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motdepasse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motdepasse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.u_role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.u_role)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_user }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

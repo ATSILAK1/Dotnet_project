@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="profinsemModelStoreContainer" CdmEntityContainer="profinsemEntities2">
+    <EntitySetMapping Name="bibliotheque">
+      <EntityTypeMapping TypeName="profinsemModel.bibliotheque">
+        <MappingFragment StoreEntitySet="bibliotheque">
+          <ScalarProperty Name="id_bib" ColumnName="id_bib" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bibliotheque_app">
+      <EntityTypeMapping TypeName="profinsemModel.Bibliotheque_app">
+        <MappingFragment StoreEntitySet="Bibliotheque_app">
+          <ScalarProperty Name="id_app" ColumnName="id_app" />
+          <ScalarProperty Name="id_bib" ColumnName="id_bib" />
+          <ScalarProperty Name="date_telechargement" ColumnName="date_telechargement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categorie">
+      <EntityTypeMapping TypeName="profinsemModel.categorie">
+        <MappingFragment StoreEntitySet="categorie">
+          <ScalarProperty Name="id_cat" ColumnName="id_cat" />
+          <ScalarProperty Name="nom_categorie" ColumnName="nom_categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="review">
+      <EntityTypeMapping TypeName="profinsemModel.review">
+        <MappingFragment StoreEntitySet="review">
+          <ScalarProperty Name="id_review" ColumnName="id_review" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="id_app" ColumnName="id_app" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="u_application">
+      <EntityTypeMapping TypeName="profinsemModel.u_application">
+        <MappingFragment StoreEntitySet="u_application">
+          <ScalarProperty Name="u_description" ColumnName="u_description" />
+          <ScalarProperty Name="id_app" ColumnName="id_app" />
+          <ScalarProperty Name="nom_app" ColumnName="nom_app" />
+          <ScalarProperty Name="nombre_telechargement" ColumnName="nombre_telechargement" />
+          <ScalarProperty Name="date_ajout" ColumnName="date_ajout" />
+          <ScalarProperty Name="categorie" ColumnName="categorie" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="app_img" ColumnName="app_img" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="utilisateur">
+      <EntityTypeMapping TypeName="profinsemModel.utilisateur">
+        <MappingFragment StoreEntitySet="utilisateur">
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="date_naissance" ColumnName="date_naissance" />
+          <ScalarProperty Name="motdepasse" ColumnName="motdepasse" />
+          <ScalarProperty Name="u_role" ColumnName="u_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

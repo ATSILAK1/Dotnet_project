@@ -1,0 +1,25 @@
+﻿@model WebApplication1.Models.utilisateur
+@{
+    ViewBag.Title = "Login";
+}
+
+
+<form method="post" action="login">
+    <div class="form-control">
+        <label>  nom d'utilisateur </label>
+        <input type="text" name="nom_utilisateur"/>
+    </div>
+    <div class="form-control">
+        <label> mot de passe </label>
+        <input type="password" name="mot_de_passe"/>
+    </div>
+
+   @ViewBag.connect;
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="profinsemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bibliotheque">
+          <Key>
+            <PropertyRef Name="id_bib" />
+          </Key>
+          <Property Name="id_bib" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bibliotheque_app">
+          <Key>
+            <PropertyRef Name="id_app" />
+            <PropertyRef Name="id_bib" />
+          </Key>
+          <Property Name="id_app" Type="int" Nullable="false" />
+          <Property Name="id_bib" Type="int" Nullable="false" />
+          <Property Name="date_telechargement" Type="date" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="id_cat" />
+          </Key>
+          <Property Name="id_cat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_categorie" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="id_review" />
+          </Key>
+          <Property Name="id_review" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Commentaire" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="id_app" Type="int" Nullable="false" />
+          <Property Name="id_user" Type="int" />
+        </EntityType>
+        <EntityType Name="u_application">
+          <Key>
+            <PropertyRef Name="id_app" />
+          </Key>
+          <Property Name="id_app" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_app" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="nombre_telechargement" Type="int" />
+          <Property Name="date_ajout" Type="date" />
+          <Property Name="categorie" Type="int" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="app_img" Type="varchar(max)" />
+          <Property Name="u_description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="utilisateur">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_utilisateur" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="prenom" Type="varchar" MaxLength="50" />
+          <Property Name="date_naissance" Type="date" Nullable="false" />
+          <Property Name="motdepasse" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="u_role" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <Association Name="FK__Bibliothe__id_ap__44FF419A">
+          <End Role="u_application" Type="Self.u_application" Multiplicity="1" />
+          <End Role="Bibliotheque_app" Type="Self.Bibliotheque_app" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_application">
+              <PropertyRef Name="id_app" />
+            </Principal>
+            <Dependent Role="Bibliotheque_app">
+              <PropertyRef Name="id_app" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bibliothe__id_bi__45F365D3">
+          <End Role="bibliotheque" Type="Self.bibliotheque" Multiplicity="1" />
+          <End Role="Bibliotheque_app" Type="Self.Bibliotheque_app" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bibliotheque">
+              <PropertyRef Name="id_bib" />
+            </Principal>
+            <Dependent Role="Bibliotheque_app">
+              <PropertyRef Name="id_bib" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__id_app__3F466844">
+          <End Role="u_application" Type="Self.u_application" Multiplicity="1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_application">
+              <PropertyRef Name="id_app" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="id_app" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__id_user__403A8C7D">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__u_applica__categ__3A81B327">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="0..1" />
+          <End Role="u_application" Type="Self.u_application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="id_cat" />
+            </Principal>
+            <Dependent Role="u_application">
+              <PropertyRef Name="categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__u_applica__id_us__3B75D760">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="u_application" Type="Self.u_application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="u_application">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="profinsemModelStoreContainer">
+          <EntitySet Name="bibliotheque" EntityType="Self.bibliotheque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bibliotheque_app" EntityType="Self.Bibliotheque_app" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="u_application" EntityType="Self.u_application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="utilisateur" EntityType="Self.utilisateur" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bibliothe__id_ap__44FF419A" Association="Self.FK__Bibliothe__id_ap__44FF419A">
+            <End Role="u_application" EntitySet="u_application" />
+            <End Role="Bibliotheque_app" EntitySet="Bibliotheque_app" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bibliothe__id_bi__45F365D3" Association="Self.FK__Bibliothe__id_bi__45F365D3">
+            <End Role="bibliotheque" EntitySet="bibliotheque" />
+            <End Role="Bibliotheque_app" EntitySet="Bibliotheque_app" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__id_app__3F466844" Association="Self.FK__review__id_app__3F466844">
+            <End Role="u_application" EntitySet="u_application" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__id_user__403A8C7D" Association="Self.FK__review__id_user__403A8C7D">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__u_applica__categ__3A81B327" Association="Self.FK__u_applica__categ__3A81B327">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="u_application" EntitySet="u_application" />
+          </AssociationSet>
+          <AssociationSet Name="FK__u_applica__id_us__3B75D760" Association="Self.FK__u_applica__id_us__3B75D760">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="u_application" EntitySet="u_application" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="profinsemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bibliotheque">
+          <Key>
+            <PropertyRef Name="id_bib" />
+          </Key>
+          <Property Name="id_bib" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bibliotheque_app" Relationship="Self.FK__Bibliothe__id_bi__45F365D3" FromRole="bibliotheque" ToRole="Bibliotheque_app" />
+        </EntityType>
+        <EntityType Name="Bibliotheque_app">
+          <Key>
+            <PropertyRef Name="id_app" />
+            <PropertyRef Name="id_bib" />
+          </Key>
+          <Property Name="id_app" Type="Int32" Nullable="false" />
+          <Property Name="id_bib" Type="Int32" Nullable="false" />
+          <Property Name="date_telechargement" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="bibliotheque" Relationship="Self.FK__Bibliothe__id_bi__45F365D3" FromRole="Bibliotheque_app" ToRole="bibliotheque" />
+          <NavigationProperty Name="u_application" Relationship="Self.FK__Bibliothe__id_ap__44FF419A" FromRole="Bibliotheque_app" ToRole="u_application" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="id_cat" />
+          </Key>
+          <Property Name="id_cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_categorie" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="u_application" Relationship="Self.FK__u_applica__categ__3A81B327" FromRole="categorie" ToRole="u_application" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="id_review" />
+          </Key>
+          <Property Name="id_review" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Commentaire" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_app" Type="Int32" Nullable="false" />
+          <Property Name="id_user" Type="Int32" />
+          <NavigationProperty Name="u_application" Relationship="Self.FK__review__id_app__3F466844" FromRole="review" ToRole="u_application" />
+          <NavigationProperty Name="utilisateur" Relationship="Self.FK__review__id_user__403A8C7D" FromRole="review" ToRole="utilisateur" />
+        </EntityType>
+        <EntityType Name="u_application">
+          <Key>
+            <PropertyRef Name="id_app" />
+          </Key>
+          <Property Name="id_app" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_app" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_telechargement" Type="Int32" />
+          <Property Name="date_ajout" Type="DateTime" Precision="0" />
+          <Property Name="categorie" Type="Int32" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="app_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bibliotheque_app" Relationship="Self.FK__Bibliothe__id_ap__44FF419A" FromRole="u_application" ToRole="Bibliotheque_app" />
+          <NavigationProperty Name="categorie1" Relationship="Self.FK__u_applica__categ__3A81B327" FromRole="u_application" ToRole="categorie" />
+          <NavigationProperty Name="review" Relationship="Self.FK__review__id_app__3F466844" FromRole="u_application" ToRole="review" />
+          <NavigationProperty Name="utilisateur" Relationship="Self.FK__u_applica__id_us__3B75D760" FromRole="u_application" ToRole="utilisateur" />
+          <Property Name="u_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="utilisateur">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date_naissance" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="motdepasse" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_role" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="review" Relationship="Self.FK__review__id_user__403A8C7D" FromRole="utilisateur" ToRole="review" />
+          <NavigationProperty Name="u_application" Relationship="Self.FK__u_applica__id_us__3B75D760" FromRole="utilisateur" ToRole="u_application" />
+        </EntityType>
+        <Association Name="FK__Bibliothe__id_bi__45F365D3">
+          <End Role="bibliotheque" Type="Self.bibliotheque" Multiplicity="1" />
+          <End Role="Bibliotheque_app" Type="Self.Bibliotheque_app" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bibliotheque">
+              <PropertyRef Name="id_bib" />
+            </Principal>
+            <Dependent Role="Bibliotheque_app">
+              <PropertyRef Name="id_bib" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bibliothe__id_ap__44FF419A">
+          <End Role="u_application" Type="Self.u_application" Multiplicity="1" />
+          <End Role="Bibliotheque_app" Type="Self.Bibliotheque_app" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_application">
+              <PropertyRef Name="id_app" />
+            </Principal>
+            <Dependent Role="Bibliotheque_app">
+              <PropertyRef Name="id_app" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__u_applica__categ__3A81B327">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="0..1" />
+          <End Role="u_application" Type="Self.u_application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="id_cat" />
+            </Principal>
+            <Dependent Role="u_application">
+              <PropertyRef Name="categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__id_app__3F466844">
+          <End Role="u_application" Type="Self.u_application" Multiplicity="1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="u_application">
+              <PropertyRef Name="id_app" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="id_app" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__review__id_user__403A8C7D">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__u_applica__id_us__3B75D760">
+          <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+          <End Role="u_application" Type="Self.u_application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="utilisateur">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="u_application">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="profinsemEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bibliotheque" EntityType="Self.bibliotheque" />
+          <EntitySet Name="Bibliotheque_app" EntityType="Self.Bibliotheque_app" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" />
+          <EntitySet Name="review" EntityType="Self.review" />
+          <EntitySet Name="u_application" EntityType="Self.u_application" />
+          <EntitySet Name="utilisateur" EntityType="Self.utilisateur" />
+          <AssociationSet Name="FK__Bibliothe__id_bi__45F365D3" Association="Self.FK__Bibliothe__id_bi__45F365D3">
+            <End Role="bibliotheque" EntitySet="bibliotheque" />
+            <End Role="Bibliotheque_app" EntitySet="Bibliotheque_app" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bibliothe__id_ap__44FF419A" Association="Self.FK__Bibliothe__id_ap__44FF419A">
+            <End Role="u_application" EntitySet="u_application" />
+            <End Role="Bibliotheque_app" EntitySet="Bibliotheque_app" />
+          </AssociationSet>
+          <AssociationSet Name="FK__u_applica__categ__3A81B327" Association="Self.FK__u_applica__categ__3A81B327">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="u_application" EntitySet="u_application" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__id_app__3F466844" Association="Self.FK__review__id_app__3F466844">
+            <End Role="u_application" EntitySet="u_application" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__review__id_user__403A8C7D" Association="Self.FK__review__id_user__403A8C7D">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="FK__u_applica__id_us__3B75D760" Association="Self.FK__u_applica__id_us__3B75D760">
+            <End Role="utilisateur" EntitySet="utilisateur" />
+            <End Role="u_application" EntitySet="u_application" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="profinsemModelStoreContainer" CdmEntityContainer="profinsemEntities2">
+          <EntitySetMapping Name="bibliotheque">
+            <EntityTypeMapping TypeName="profinsemModel.bibliotheque">
+              <MappingFragment StoreEntitySet="bibliotheque">
+                <ScalarProperty Name="id_bib" ColumnName="id_bib" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bibliotheque_app">
+            <EntityTypeMapping TypeName="profinsemModel.Bibliotheque_app">
+              <MappingFragment StoreEntitySet="Bibliotheque_app">
+                <ScalarProperty Name="id_app" ColumnName="id_app" />
+                <ScalarProperty Name="id_bib" ColumnName="id_bib" />
+                <ScalarProperty Name="date_telechargement" ColumnName="date_telechargement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categorie">
+            <EntityTypeMapping TypeName="profinsemModel.categorie">
+              <MappingFragment StoreEntitySet="categorie">
+                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
+                <ScalarProperty Name="nom_categorie" ColumnName="nom_categorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="review">
+            <EntityTypeMapping TypeName="profinsemModel.review">
+              <MappingFragment StoreEntitySet="review">
+                <ScalarProperty Name="id_review" ColumnName="id_review" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+                <ScalarProperty Name="id_app" ColumnName="id_app" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="u_application">
+            <EntityTypeMapping TypeName="profinsemModel.u_application">
+              <MappingFragment StoreEntitySet="u_application">
+                <ScalarProperty Name="u_description" ColumnName="u_description" />
+                <ScalarProperty Name="id_app" ColumnName="id_app" />
+                <ScalarProperty Name="nom_app" ColumnName="nom_app" />
+                <ScalarProperty Name="nombre_telechargement" ColumnName="nombre_telechargement" />
+                <ScalarProperty Name="date_ajout" ColumnName="date_ajout" />
+                <ScalarProperty Name="categorie" ColumnName="categorie" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="app_img" ColumnName="app_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="utilisateur">
+            <EntityTypeMapping TypeName="profinsemModel.utilisateur">
+              <MappingFragment StoreEntitySet="utilisateur">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="date_naissance" ColumnName="date_naissance" />
+                <ScalarProperty Name="motdepasse" ColumnName="motdepasse" />
+                <ScalarProperty Name="u_role" ColumnName="u_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
