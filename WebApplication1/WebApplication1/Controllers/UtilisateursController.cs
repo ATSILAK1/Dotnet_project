@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class UtilisateursController : Controller
     {
-        private profinsemEntities2 db = new profinsemEntities2();
+        private profinsemEntities db = new profinsemEntities();
 
         // GET: utilisateurs
         public ActionResult Index()
@@ -54,9 +54,13 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 utilisateur.u_role = "user";
+                utilisateur.date_naissance = utilisateur.date_naissance.Date;
+                bibliotheque bib = new bibliotheque();
+                bib.utilisateur.Add(utilisateur);
+                utilisateur.bibliotheque = bib;
                 db.utilisateur.Add(utilisateur);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
 
             return View(utilisateur);
@@ -129,6 +133,7 @@ namespace WebApplication1.Controllers
             {
               user = db.utilisateur.Where(c => c.nom_utilisateur == username && c.motdepasse == password).First();
                 Session["user"] = user;
+                Session["user_id"] = user.id_user;  
                 Session["role"] = user.u_role;
             }catch(System.InvalidOperationException e)
             {
@@ -137,7 +142,7 @@ namespace WebApplication1.Controllers
                 
                 if (user == null)
             {
-                ViewBag.connect = "echec de la connexion";
+                ViewBag.connect = "Not Connected";
                 return View();
             }
             return RedirectToAction("index", "u_application");
@@ -145,7 +150,7 @@ namespace WebApplication1.Controllers
         public ActionResult deconnexion()
         {
             Session["user"] = null;
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Login");
         }
         protected override void Dispose(bool disposing)
         {

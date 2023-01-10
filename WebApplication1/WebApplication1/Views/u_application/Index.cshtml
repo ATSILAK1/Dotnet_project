@@ -11,6 +11,10 @@
 </p>
 <table class="table">
     <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.app_img)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.nom_app)
         </th>
@@ -20,9 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.date_ajout)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.app_img)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.u_description)
         </th>
@@ -38,6 +40,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            <img src="@item.app_img" width="50px" height="50px"/>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.nom_app)
         </td>
         <td>
@@ -46,9 +51,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.date_ajout)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.app_img)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.u_description)
         </td>
@@ -59,9 +62,9 @@
             @Html.DisplayFor(modelItem => item.utilisateur.nom_utilisateur)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_app }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_app }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_app })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id_app }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id_app }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id_app })
         </td>
     </tr>
 }

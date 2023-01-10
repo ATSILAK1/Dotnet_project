@@ -1,0 +1,66 @@
+﻿@model dev.Models.Pilote
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pilote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_pil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_pil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prenom_pil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prenom_pil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ville_domicile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_domicile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.num_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.salaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.salaire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.num_pil }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

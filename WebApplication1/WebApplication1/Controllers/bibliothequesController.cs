@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class bibliothequesController : Controller
     {
-        private profinsemEntities2 db = new profinsemEntities2();
+        private profinsemEntities db = new profinsemEntities();
 
         // GET: bibliotheques
         public ActionResult Index()
@@ -48,8 +48,10 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_bib,id_user")] bibliotheque bibliotheque)
         {
+
             if (ModelState.IsValid)
             {
+               
                 db.bibliotheque.Add(bibliotheque);
                 db.SaveChanges();
                 return RedirectToAction("Index");

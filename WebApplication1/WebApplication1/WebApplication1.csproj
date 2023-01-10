@@ -237,31 +237,25 @@
     <Content Include="Views\Bibliotheque_app\Details.cshtml" />
     <Content Include="Views\Bibliotheque_app\Edit.cshtml" />
     <Content Include="Views\Bibliotheque_app\Index.cshtml" />
-    <Content Include="Views\u_application\Create.cshtml" />
-    <Content Include="Views\u_application\Delete.cshtml" />
-    <Content Include="Views\u_application\Details.cshtml" />
-    <Content Include="Views\u_application\Edit.cshtml" />
-    <Content Include="Views\u_application\Index.cshtml" />
     <Content Include="Views\categories\Create.cshtml" />
     <Content Include="Views\categories\Delete.cshtml" />
     <Content Include="Views\categories\Details.cshtml" />
     <Content Include="Views\categories\Edit.cshtml" />
     <Content Include="Views\categories\Index.cshtml" />
-    <Content Include="Views\reviews\Create.cshtml" />
-    <Content Include="Views\reviews\Delete.cshtml" />
-    <Content Include="Views\reviews\Details.cshtml" />
-    <Content Include="Views\reviews\Edit.cshtml" />
-    <Content Include="Views\reviews\Index.cshtml" />
     <Content Include="Views\bibliotheques\Create.cshtml" />
     <Content Include="Views\bibliotheques\Delete.cshtml" />
     <Content Include="Views\bibliotheques\Details.cshtml" />
     <Content Include="Views\bibliotheques\Edit.cshtml" />
     <Content Include="Views\bibliotheques\Index.cshtml" />
     <Content Include="Views\utilisateurs\Login.cshtml" />
+    <Content Include="Views\u_application\Index.cshtml" />
+    <Content Include="Views\u_application\Create.cshtml" />
+    <Content Include="Views\u_application\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
+    <Folder Include="Views\reviews\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

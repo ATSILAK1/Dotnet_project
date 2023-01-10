@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class reviewsController : Controller
     {
-        private profinsemEntities2 db = new profinsemEntities2();
+        private profinsemEntities db = new profinsemEntities();
 
         // GET: reviews
         public ActionResult Index()
@@ -49,13 +49,19 @@ namespace WebApplication1.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_review,Commentaire,id_app,id_user")] review review)
+        public ActionResult Create([Bind(Include = "id_review,Commentaire,id_app,id_user")] review review , int id)
         {
+            string commentaire = Request.Form["commentaire"];
+            review.Commentaire = commentaire;
+            review.utilisateur = db.utilisateur.Find((int)Session["user_id"]);
+            review.u_application = db.u_application.Find(id);
+
+
             if (ModelState.IsValid)
             {
                 db.review.Add(review);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","u_application",new {id=id});
             }
 
             ViewBag.id_app = new SelectList(db.u_application, "id_app", "nom_app", review.id_app);

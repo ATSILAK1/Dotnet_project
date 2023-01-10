@@ -1,0 +1,1 @@
+﻿EXEC sp_help 'dbo.u_application'

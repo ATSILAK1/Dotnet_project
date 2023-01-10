@@ -11,7 +11,8 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class utilisateur
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,14 +23,32 @@ namespace WebApplication1.Models
         }
     
         public int id_user { get; set; }
+        [Display(Name ="Username")]
+        [Required]
         public string nom_utilisateur { get; set; }
+        [Display(Name = "Email")]
+        [Required]
+        [EmailAddress]
         public string email { get; set; }
+        [Required]
+        [Display(Name ="Last Name")]
         public string nom { get; set; }
+        [Required]
+        [Display(Name ="First Name")]
         public string prenom { get; set; }
+        [Required]
+        [Display (Name ="Birth day Date")]
         public System.DateTime date_naissance { get; set; }
+
+        [MinLength(length:8)]
+        [MaxLength(64,ErrorMessage ="MAX lENGTH IS 64 CHAR")]
+        [Required]
+        [Display (Name = "Password")]
         public string motdepasse { get; set; }
         public string u_role { get; set; }
+        public int bibliotheque_id_bib { get; set; }
     
+        public virtual bibliotheque bibliotheque { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<review> review { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

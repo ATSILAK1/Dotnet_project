@@ -1,0 +1,72 @@
+﻿@model dev.Models.Pilote
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pilote</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_pil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_pil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prenom_pil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prenom_pil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ville_domicile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_domicile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.num_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.salaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.salaire)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

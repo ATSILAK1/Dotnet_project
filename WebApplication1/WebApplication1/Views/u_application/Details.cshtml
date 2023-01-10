@@ -10,6 +10,8 @@
     <h4>u_application</h4>
     <hr />
     <dl class="dl-horizontal">
+        <img src="@Model.app_img" height="50px" width="50px" />
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.nom_app)
         </dt>
@@ -35,12 +37,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.app_img)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.app_img)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.u_description)
@@ -51,7 +47,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.categorie1.nom_categorie)
+           Category
         </dt>
 
         <dd>
@@ -59,7 +55,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.utilisateur.nom_utilisateur)
+            Owner 
         </dt>
 
         <dd>
@@ -67,8 +63,24 @@
         </dd>
 
     </dl>
+
+
 </div>
+@{
+    foreach (var com in Model.review)
+    {
+ <div>
+     @com.Commentaire
+ </div> }
+}
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id_app }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<form method="post" action=@Url.Action("Create","Reviews",new { id = Model.id_app})>
+   @Html.AntiForgeryToken() 
+    
+    <textarea name="commentaire" placeholder=" Your Comments ... " cols="50" rows="10"></textarea>
+    <button type="submit" class="btn btn-success"> share </button>
+</form>

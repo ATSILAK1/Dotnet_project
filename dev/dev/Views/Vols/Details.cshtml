@@ -1,0 +1,66 @@
+﻿@model dev.Models.Vol
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vol</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ville_depart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_depart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ville_arrive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_arrive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_depart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_depart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_arrivee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_arrivee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Avion.nom_av)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avion.nom_av)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pilote.nom_pil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pilote.nom_pil)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.num_vol }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

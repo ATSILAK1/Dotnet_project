@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_aeroportModelStoreContainer" CdmEntityContainer="BD_aeroportEntities">
+    <EntitySetMapping Name="Avion">
+      <EntityTypeMapping TypeName="BD_aeroportModel.Avion">
+        <MappingFragment StoreEntitySet="Avion">
+          <ScalarProperty Name="num_av" ColumnName="num_av" />
+          <ScalarProperty Name="nom_av" ColumnName="nom_av" />
+          <ScalarProperty Name="capacite" ColumnName="capacite" />
+          <ScalarProperty Name="localisation" ColumnName="localisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pilote">
+      <EntityTypeMapping TypeName="BD_aeroportModel.Pilote">
+        <MappingFragment StoreEntitySet="Pilote">
+          <ScalarProperty Name="num_pil" ColumnName="num_pil" />
+          <ScalarProperty Name="nom_pil" ColumnName="nom_pil" />
+          <ScalarProperty Name="prenom_pil" ColumnName="prenom_pil" />
+          <ScalarProperty Name="ville_domicile" ColumnName="ville_domicile" />
+          <ScalarProperty Name="num_tel" ColumnName="num_tel" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="salaire" ColumnName="salaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vol">
+      <EntityTypeMapping TypeName="BD_aeroportModel.Vol">
+        <MappingFragment StoreEntitySet="Vol">
+          <ScalarProperty Name="num_vol" ColumnName="num_vol" />
+          <ScalarProperty Name="num_pil" ColumnName="num_pil" />
+          <ScalarProperty Name="num_av" ColumnName="num_av" />
+          <ScalarProperty Name="ville_depart" ColumnName="ville_depart" />
+          <ScalarProperty Name="ville_arrive" ColumnName="ville_arrive" />
+          <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+          <ScalarProperty Name="date_arrivee" ColumnName="date_arrivee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

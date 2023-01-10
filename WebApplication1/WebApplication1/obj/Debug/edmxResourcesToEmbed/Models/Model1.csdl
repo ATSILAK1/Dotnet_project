@@ -5,8 +5,9 @@
       <PropertyRef Name="id_bib" />
     </Key>
     <Property Name="id_bib" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" />
     <NavigationProperty Name="Bibliotheque_app" Relationship="Self.FK__Bibliothe__id_bi__45F365D3" FromRole="bibliotheque" ToRole="Bibliotheque_app" />
+    <NavigationProperty Name="utilisateur" Relationship="Self.FK_utilisateurbibliotheque" FromRole="bibliotheque" ToRole="utilisateur" />
   </EntityType>
   <EntityType Name="Bibliotheque_app">
     <Key>
@@ -25,7 +26,7 @@
     </Key>
     <Property Name="id_cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nom_categorie" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="u_application" Relationship="Self.FK__u_applica__categ__3A81B327" FromRole="categorie" ToRole="u_application" />
+    <NavigationProperty Name="u_application" Relationship="Self.FK__u_applica__categ__0880433F" FromRole="categorie" ToRole="u_application" />
   </EntityType>
   <EntityType Name="review">
     <Key>
@@ -35,6 +36,7 @@
     <Property Name="Commentaire" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="id_app" Type="Int32" Nullable="false" />
     <Property Name="id_user" Type="Int32" />
+    <Property Name="note" Type="Double" />
     <NavigationProperty Name="u_application" Relationship="Self.FK__review__id_app__3F466844" FromRole="review" ToRole="u_application" />
     <NavigationProperty Name="utilisateur" Relationship="Self.FK__review__id_user__403A8C7D" FromRole="review" ToRole="utilisateur" />
   </EntityType>
@@ -46,14 +48,14 @@
     <Property Name="nom_app" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nombre_telechargement" Type="Int32" />
     <Property Name="date_ajout" Type="DateTime" Precision="0" />
-    <Property Name="categorie" Type="Int32" />
-    <Property Name="id_user" Type="Int32" />
+    <Property Name="categorie" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
     <Property Name="app_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Bibliotheque_app" Relationship="Self.FK__Bibliothe__id_ap__44FF419A" FromRole="u_application" ToRole="Bibliotheque_app" />
-    <NavigationProperty Name="categorie1" Relationship="Self.FK__u_applica__categ__3A81B327" FromRole="u_application" ToRole="categorie" />
-    <NavigationProperty Name="review" Relationship="Self.FK__review__id_app__3F466844" FromRole="u_application" ToRole="review" />
-    <NavigationProperty Name="utilisateur" Relationship="Self.FK__u_applica__id_us__3B75D760" FromRole="u_application" ToRole="utilisateur" />
     <Property Name="u_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Bibliotheque_app" Relationship="Self.FK__Bibliothe__id_ap__44FF419A" FromRole="u_application" ToRole="Bibliotheque_app" />
+    <NavigationProperty Name="categorie1" Relationship="Self.FK__u_applica__categ__0880433F" FromRole="u_application" ToRole="categorie" />
+    <NavigationProperty Name="review" Relationship="Self.FK__review__id_app__3F466844" FromRole="u_application" ToRole="review" />
+    <NavigationProperty Name="utilisateur" Relationship="Self.FK__u_applica__id_us__078C1F06" FromRole="u_application" ToRole="utilisateur" />
   </EntityType>
   <EntityType Name="utilisateur">
     <Key>
@@ -64,11 +66,13 @@
     <Property Name="email" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="date_naissance" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="date_naissance" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="motdepasse" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="u_role" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Name="bibliotheque_id_bib" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="bibliotheque" Relationship="Self.FK_utilisateurbibliotheque" FromRole="utilisateur" ToRole="bibliotheque" />
     <NavigationProperty Name="review" Relationship="Self.FK__review__id_user__403A8C7D" FromRole="utilisateur" ToRole="review" />
-    <NavigationProperty Name="u_application" Relationship="Self.FK__u_applica__id_us__3B75D760" FromRole="utilisateur" ToRole="u_application" />
+    <NavigationProperty Name="u_application" Relationship="Self.FK__u_applica__id_us__078C1F06" FromRole="utilisateur" ToRole="u_application" />
   </EntityType>
   <Association Name="FK__Bibliothe__id_bi__45F365D3">
     <End Role="bibliotheque" Type="Self.bibliotheque" Multiplicity="1" />
@@ -79,6 +83,18 @@
       </Principal>
       <Dependent Role="Bibliotheque_app">
         <PropertyRef Name="id_bib" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_utilisateurbibliotheque">
+    <End Role="bibliotheque" Type="Self.bibliotheque" Multiplicity="1" />
+    <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bibliotheque">
+        <PropertyRef Name="id_bib" />
+      </Principal>
+      <Dependent Role="utilisateur">
+        <PropertyRef Name="bibliotheque_id_bib" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -94,8 +110,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__u_applica__categ__3A81B327">
-    <End Role="categorie" Type="Self.categorie" Multiplicity="0..1" />
+  <Association Name="FK__u_applica__categ__0880433F">
+    <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
     <End Role="u_application" Type="Self.u_application" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="categorie">
@@ -130,8 +146,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__u_applica__id_us__3B75D760">
-    <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="0..1" />
+  <Association Name="FK__u_applica__id_us__078C1F06">
+    <End Role="utilisateur" Type="Self.utilisateur" Multiplicity="1" />
     <End Role="u_application" Type="Self.u_application" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="utilisateur">
@@ -142,7 +158,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="profinsemEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="profinsemEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="bibliotheque" EntityType="Self.bibliotheque" />
     <EntitySet Name="Bibliotheque_app" EntityType="Self.Bibliotheque_app" />
     <EntitySet Name="categorie" EntityType="Self.categorie" />
@@ -153,11 +169,15 @@
       <End Role="bibliotheque" EntitySet="bibliotheque" />
       <End Role="Bibliotheque_app" EntitySet="Bibliotheque_app" />
     </AssociationSet>
+    <AssociationSet Name="FK_utilisateurbibliotheque" Association="Self.FK_utilisateurbibliotheque">
+      <End Role="bibliotheque" EntitySet="bibliotheque" />
+      <End Role="utilisateur" EntitySet="utilisateur" />
+    </AssociationSet>
     <AssociationSet Name="FK__Bibliothe__id_ap__44FF419A" Association="Self.FK__Bibliothe__id_ap__44FF419A">
       <End Role="u_application" EntitySet="u_application" />
       <End Role="Bibliotheque_app" EntitySet="Bibliotheque_app" />
     </AssociationSet>
-    <AssociationSet Name="FK__u_applica__categ__3A81B327" Association="Self.FK__u_applica__categ__3A81B327">
+    <AssociationSet Name="FK__u_applica__categ__0880433F" Association="Self.FK__u_applica__categ__0880433F">
       <End Role="categorie" EntitySet="categorie" />
       <End Role="u_application" EntitySet="u_application" />
     </AssociationSet>
@@ -169,7 +189,7 @@
       <End Role="utilisateur" EntitySet="utilisateur" />
       <End Role="review" EntitySet="review" />
     </AssociationSet>
-    <AssociationSet Name="FK__u_applica__id_us__3B75D760" Association="Self.FK__u_applica__id_us__3B75D760">
+    <AssociationSet Name="FK__u_applica__id_us__078C1F06" Association="Self.FK__u_applica__id_us__078C1F06">
       <End Role="utilisateur" EntitySet="utilisateur" />
       <End Role="u_application" EntitySet="u_application" />
     </AssociationSet>

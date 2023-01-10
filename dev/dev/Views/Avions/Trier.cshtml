@@ -1,0 +1,45 @@
+﻿@model IEnumerable<dev.Models.Avion>
+
+@{
+    ViewBag.Title = "Trier";
+}
+
+<h2>Trier</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nom_av)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.capacite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localisation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom_av)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.capacite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localisation)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.num_av }) |
+            @Html.ActionLink("Details", "Details", new { id=item.num_av }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.num_av })
+        </td>
+    </tr>
+}
+
+</table>

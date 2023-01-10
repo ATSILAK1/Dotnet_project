@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class categoriesController : Controller
     {
-        private profinsemEntities2 db = new profinsemEntities2();
+        private profinsemEntities db = new profinsemEntities();
 
         // GET: categories
         public ActionResult Index()

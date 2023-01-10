@@ -11,7 +11,9 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class u_application
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,19 +24,32 @@ namespace WebApplication1.Models
         }
     
         public int id_app { get; set; }
+        [Display(Name ="Application name")]
+        [Required]
+        [MinLength(1)]
         public string nom_app { get; set; }
+        [Display (Name ="Downloads")]
         public Nullable<int> nombre_telechargement { get; set; }
+        [Display (Name ="Add date")]
         public Nullable<System.DateTime> date_ajout { get; set; }
-        public Nullable<int> categorie { get; set; }
-        public Nullable<int> id_user { get; set; }
+        [Required]
+        [Display(Name ="Category")]
+        public int categorie { get; set; }
+        public int id_user { get; set; }
+        [Display(Name = "Icon")]
         public string app_img { get; set; }
+        public HttpPostedFileBase img { get; set; }
+        [Required]
+        [Display (Name ="Description")]
         public string u_description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bibliotheque_app> Bibliotheque_app { get; set; }
+        [Display(Name ="Category")]
         public virtual categorie categorie1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<review> review { get; set; }
+        [Display(Name ="Owner")]
         public virtual utilisateur utilisateur { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace WebApplication1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class profinsemEntities2 : DbContext
+    public partial class profinsemEntities : DbContext
     {
-        public profinsemEntities2()
-            : base("name=profinsemEntities2")
+        public profinsemEntities()
+            : base("name=profinsemEntities")
         {
         }
     

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<dev.Models.Pilote>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    <a class="btn btn-primary" href=@Url.Action("Trier","Pilotes") value="trier">trier  </a>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nom_pil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prenom_pil)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ville_domicile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.num_tel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.salaire)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom_pil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prenom_pil)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ville_domicile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.num_tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salaire)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.num_pil }) |
+            @Html.ActionLink("Details", "Details", new { id=item.num_pil }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.num_pil })
+        </td>
+    </tr>
+}
+
+</table>
+
+max     : @ViewData["max"];
+min     : @ViewData["min"];
+moyenne : @ViewData["moyenne"];
+total   : @ViewData["total"];
+
+@{
+    var query = Model.GroupBy(elt => elt.ville_domicile, (Ville, Salaire) => new { VILLE = Ville, SALAIRE = Salaire.Average(e => e.salaire) });
+
+    <div>VILLE => moyenne des salaire</div>
+    foreach(var item in query)
+    {
+    <div> @item.VILLE => @item.SALAIRE </div>
+    }
+
+
+    
+}

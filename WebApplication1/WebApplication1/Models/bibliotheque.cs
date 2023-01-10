@@ -18,12 +18,15 @@ namespace WebApplication1.Models
         public bibliotheque()
         {
             this.Bibliotheque_app = new HashSet<Bibliotheque_app>();
+            this.utilisateur = new HashSet<utilisateur>();
         }
     
         public int id_bib { get; set; }
-        public int id_user { get; set; }
+        public Nullable<int> id_user { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bibliotheque_app> Bibliotheque_app { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<utilisateur> utilisateur { get; set; }
     }
 }

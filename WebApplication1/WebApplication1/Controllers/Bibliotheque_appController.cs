@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class Bibliotheque_appController : Controller
     {
-        private profinsemEntities2 db = new profinsemEntities2();
+        private profinsemEntities db = new profinsemEntities();
 
         // GET: Bibliotheque_app
         public ActionResult Index()

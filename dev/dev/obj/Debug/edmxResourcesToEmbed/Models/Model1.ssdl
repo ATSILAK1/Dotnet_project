@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_aeroportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Avion">
+    <Key>
+      <PropertyRef Name="num_av" />
+    </Key>
+    <Property Name="num_av" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom_av" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="capacite" Type="int" Nullable="false" />
+    <Property Name="localisation" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Pilote">
+    <Key>
+      <PropertyRef Name="num_pil" />
+    </Key>
+    <Property Name="num_pil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom_pil" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="prenom_pil" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ville_domicile" Type="varchar" MaxLength="50" />
+    <Property Name="num_tel" Type="int" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="salaire" Type="int" />
+  </EntityType>
+  <EntityType Name="Vol">
+    <Key>
+      <PropertyRef Name="num_vol" />
+    </Key>
+    <Property Name="num_vol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="num_pil" Type="int" Nullable="false" />
+    <Property Name="num_av" Type="int" Nullable="false" />
+    <Property Name="ville_depart" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ville_arrive" Type="varchar" MaxLength="50" />
+    <Property Name="date_depart" Type="date" Nullable="false" />
+    <Property Name="date_arrivee" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Vol__num_av__300424B4">
+    <End Role="Avion" Type="Self.Avion" Multiplicity="1" />
+    <End Role="Vol" Type="Self.Vol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Avion">
+        <PropertyRef Name="num_av" />
+      </Principal>
+      <Dependent Role="Vol">
+        <PropertyRef Name="num_av" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vol__num_pil__30F848ED">
+    <End Role="Pilote" Type="Self.Pilote" Multiplicity="1" />
+    <End Role="Vol" Type="Self.Vol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pilote">
+        <PropertyRef Name="num_pil" />
+      </Principal>
+      <Dependent Role="Vol">
+        <PropertyRef Name="num_pil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BD_aeroportModelStoreContainer">
+    <EntitySet Name="Avion" EntityType="Self.Avion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pilote" EntityType="Self.Pilote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vol" EntityType="Self.Vol" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Vol__num_av__300424B4" Association="Self.FK__Vol__num_av__300424B4">
+      <End Role="Avion" EntitySet="Avion" />
+      <End Role="Vol" EntitySet="Vol" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vol__num_pil__30F848ED" Association="Self.FK__Vol__num_pil__30F848ED">
+      <End Role="Pilote" EntitySet="Pilote" />
+      <End Role="Vol" EntitySet="Vol" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

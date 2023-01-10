@@ -11,13 +11,17 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class review
     {
         public int id_review { get; set; }
+        [Display (Name ="Comment")]
         public string Commentaire { get; set; }
         public int id_app { get; set; }
         public Nullable<int> id_user { get; set; }
+        [Display (Name ="Rating")]
+        public Nullable<double> note { get; set; }
     
         public virtual u_application u_application { get; set; }
         public virtual utilisateur utilisateur { get; set; }
