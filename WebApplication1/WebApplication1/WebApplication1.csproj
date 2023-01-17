@@ -179,6 +179,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -213,6 +214,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="txt\TextFile1.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -246,11 +248,12 @@
     <Content Include="Views\bibliotheques\Delete.cshtml" />
     <Content Include="Views\bibliotheques\Details.cshtml" />
     <Content Include="Views\bibliotheques\Edit.cshtml" />
-    <Content Include="Views\bibliotheques\Index.cshtml" />
+    <None Include="Views\bibliotheques\Index.cshtml" />
     <Content Include="Views\utilisateurs\Login.cshtml" />
     <Content Include="Views\u_application\Index.cshtml" />
     <Content Include="Views\u_application\Create.cshtml" />
     <Content Include="Views\u_application\Details.cshtml" />
+    <Content Include="Views\u_application\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

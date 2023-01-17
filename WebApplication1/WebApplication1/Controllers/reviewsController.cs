@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls.WebParts;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -56,7 +58,6 @@ namespace WebApplication1.Controllers
             review.utilisateur = db.utilisateur.Find((int)Session["user_id"]);
             review.u_application = db.u_application.Find(id);
 
-
             if (ModelState.IsValid)
             {
                 db.review.Add(review);
@@ -72,11 +73,17 @@ namespace WebApplication1.Controllers
         // GET: reviews/Edit/5
         public ActionResult Edit(int? id)
         {
+            var user = Session["user"] as utilisateur;
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             review review = db.review.Find(id);
+
+            if (review.utilisateur != user)
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); 
+            
             if (review == null)
             {
                 return HttpNotFound();
@@ -107,11 +114,15 @@ namespace WebApplication1.Controllers
         // GET: reviews/Delete/5
         public ActionResult Delete(int? id)
         {
+           
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             review review = db.review.Find(id);
+
+          
             if (review == null)
             {
                 return HttpNotFound();
@@ -124,7 +135,11 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var user = Session["user"] as utilisateur;
+          
             review review = db.review.Find(id);
+            if (review.utilisateur != user)
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             db.review.Remove(review);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -135,7 +135,7 @@ namespace WebApplication1.Controllers
                 Session["user"] = user;
                 Session["user_id"] = user.id_user;  
                 Session["role"] = user.u_role;
-            }catch(System.InvalidOperationException e)
+            }catch(System.InvalidOperationException )
             {
                 user = null;
             }
@@ -150,6 +150,7 @@ namespace WebApplication1.Controllers
         public ActionResult deconnexion()
         {
             Session["user"] = null;
+            Session.Clear();
             return RedirectToAction("Login");
         }
         protected override void Dispose(bool disposing)

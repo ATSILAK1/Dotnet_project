@@ -11,7 +11,9 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.CompilerServices;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class categorie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +23,7 @@ namespace WebApplication1.Models
         }
     
         public int id_cat { get; set; }
+        [Display(Name="Category")]
         public string nom_categorie { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

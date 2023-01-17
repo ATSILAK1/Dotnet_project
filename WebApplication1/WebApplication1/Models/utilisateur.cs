@@ -25,15 +25,18 @@ namespace WebApplication1.Models
         public int id_user { get; set; }
         [Display(Name ="Username")]
         [Required]
+        
         public string nom_utilisateur { get; set; }
         [Display(Name = "Email")]
         [Required]
         [EmailAddress]
         public string email { get; set; }
         [Required]
+        [MaxLength(50)]
         [Display(Name ="Last Name")]
         public string nom { get; set; }
         [Required]
+        [MaxLength(50)]
         [Display(Name ="First Name")]
         public string prenom { get; set; }
         [Required]
@@ -41,10 +44,11 @@ namespace WebApplication1.Models
         public System.DateTime date_naissance { get; set; }
 
         [MinLength(length:8)]
-        [MaxLength(64,ErrorMessage ="MAX lENGTH IS 64 CHAR")]
+        [MaxLength(64,ErrorMessage ="MAX LENGTH IS 64 CHAR")]
         [Required]
         [Display (Name = "Password")]
         public string motdepasse { get; set; }
+        
         public string u_role { get; set; }
         public int bibliotheque_id_bib { get; set; }
     

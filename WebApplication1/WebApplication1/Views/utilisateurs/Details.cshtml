@@ -65,10 +65,18 @@
         <dd>
             @Html.DisplayFor(model => model.u_role)
         </dd>
+        <dt>
+            Application owned :
+        </dt>
+        @foreach(var item in Model.u_application)
+        {
+            Html.ActionLink(item.nom_app, "details", "u_application", new { id = item.id_app });
+        }
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id_user }) |
+    @Html.ActionLink("Delete","Delete",new {id = Model.id_user})|
     @Html.ActionLink("Back to List", "Index")
 </p>

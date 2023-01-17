@@ -1,72 +1,55 @@
 ﻿@model IEnumerable<WebApplication1.Models.u_application>
 
 @{
+    
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<form method="post" >
+    
+    <input placeholder="Search..." type="text" name="recherche" />
+    <input type="submit" class="btn btn-primary"/>
+</form>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.app_img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nom_app)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre_telechargement)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date_ajout)
-        </th>
+<div class="row">
+    @foreach (var item in Model)
+    {
 
-        <th>
-            @Html.DisplayNameFor(model => model.u_description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.categorie1.nom_categorie)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.utilisateur.nom_utilisateur)
-        </th>
-        <th></th>
-    </tr>
+        <div class="col-sm">
+            <div class="example-1 card">
+                <div class="wrapper" style="background-image:url(@item.app_img);
+background-repeat:no-repeat;">
+                    <div class="date">
+                        <span class="day">@item.date_ajout.Value.Day </span>
+                        <span class="month">@item.date_ajout.Value.Month</span>
+                        <span class="year">@item.date_ajout.Value.Year</span>
+                    </div>
+                    <div class="data">
+                        <div class="content">
+                            <span class="author">@item.utilisateur.nom_utilisateur</span>
+                            <h1 class="title"><a href=@Url.Action("Details",new {id = item.id_app})>@item.nom_app</a></h1>
+                            <p class="text">@item.u_description</p>
+                           @Html.ActionLink("DownLoad","telechargerapp","u_application",new { id = item.id_app } , new {@class ="btn btn-success"})
+                            <label for="show-menu+@item.id_app" class="menu-button"><span></span></label>
+                        </div>
+                        <input type="checkbox" id="show-menu+@item.id_app" />
+                        <ul class="menu-content">
+                            <li>
+                                <a href="#" ><i class="fa fa-globe"></i><span>@item.nombre_telechargement</span></a>
+                            </li>
+                            <li><a href="#" class="fa fa-heart-o"><span></span></a></li>
+                            <li><a href="#" class="fa fa-comment-o"><span>8</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img src="@item.app_img" width="50px" height="50px"/>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nom_app)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre_telechargement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_ajout)
-        </td>
+        </div>
+    }
 
-        <td>
-            @Html.DisplayFor(modelItem => item.u_description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.categorie1.nom_categorie)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.utilisateur.nom_utilisateur)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id_app }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id_app }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id_app })
-        </td>
-    </tr>
-}
+</div>
 
-</table>

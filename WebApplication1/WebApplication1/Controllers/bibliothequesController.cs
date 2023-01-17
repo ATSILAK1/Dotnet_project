@@ -17,7 +17,17 @@ namespace WebApplication1.Controllers
         // GET: bibliotheques
         public ActionResult Index()
         {
-            return View(db.bibliotheque.ToList());
+            try
+            {
+                var user = Session["user"] as utilisateur;
+                var bib = db.bibliotheque.Find(user.bibliotheque_id_bib);
+                     return View(bib.Bibliotheque_app.ToList());
+            }
+            catch(System.NullReferenceException )
+            {
+                return RedirectToAction("Login", "utilisateur");
+            }
+               
         }
 
         // GET: bibliotheques/Details/5

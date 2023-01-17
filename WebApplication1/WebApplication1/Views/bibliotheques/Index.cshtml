@@ -1,33 +1,43 @@
-﻿@model IEnumerable<WebApplication1.Models.bibliotheque>
-
+﻿@model IEnumerable<WebApplication1.Models.Bibliotheque_app>
 @{
     ViewBag.Title = "Index";
 }
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<div>
+    @foreach (var item in Model)
+    {
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.id_user)
-        </th>
-        <th></th>
-    </tr>
+        <div class="col">
+            <div class="example-1 card">
+                <div class="wrapper" style="background-image:url(@item.u_application.app_img);
+background-repeat:no-repeat;">
+                    <div class="date">
+                        <span class="day">@item.date_telechargement.Value.Day</span>
+                        <span class="month">@item.date_telechargement.Value.Month</span>
+                        <span class="year">@item.date_telechargement.Value.Year</span>
+                    </div>
+                    <div class="data">
+                        <div class="content">
+                            <span class="author">@item.u_application.utilisateur.nom_utilisateur</span>
+                            <h1 class="title"><a href="#">@item.u_application.nom_app</a></h1>
+                            <p class="text">@item.u_application.u_description</p>
+                            <label for="show-menu" class="menu-button"><span></span></label>
+                            
+                        </div>
+                        <input type="checkbox" id="show-menu" />
+                        <ul class="menu-content">
+                            <li>
+                                <a href="" class="fa fa-bookmark-o"><span>@item.u_application.nombre_telechargement</span></a>
+                            </li>
+                            <li><a href="#" class="fa fa-heart-o"><span></span></a></li>
+                            <li><a href="#" class="fa fa-comment-o"><span>8</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_user)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_bib }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_bib }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_bib })
-        </td>
-    </tr>
-}
-
-</table>
+        </div>
+        <br />
+    }
+</div>
