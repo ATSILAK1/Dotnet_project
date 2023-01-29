@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApplication1.Models.u_application>
+@{
+    ViewBag.Title = "Library";
+}
+
+<h2>Library</h2>
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<div class="row">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-sm">
+            <div class="example-1 card">
+                <div class="wrapper" style="background-image:url(@item.app_img);
+background-repeat:no-repeat;">
+                    <div class="date">
+                        <span class="day">@item.date_ajout.Value.Day </span>
+                        <span class="month">@item.date_ajout.Value.Month</span>
+                        <span class="year">@item.date_ajout.Value.Year</span>
+                    </div>
+                    <div class="data">
+                        <div class="content">
+                            <span class="author">@item.utilisateur.nom_utilisateur</span>
+                            <h1 class="title"><a href=@Url.Action("Details",new {id = item.id_app})>@item.nom_app</a></h1>
+                            <p class="text">@item.u_description</p>
+                            @Html.ActionLink("DownLoad", "telechargerapp", "u_application", new { id = item.id_app }, new { @class = "btn btn-success" })
+                            <label for="show-menu+@item.id_app" class="menu-button"><span></span></label>
+                        </div>
+                        <input type="checkbox" id="show-menu+@item.id_app" />
+                        <ul class="menu-content">
+                            <li>
+                                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"> <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" /> </svg>
+                                <span>@item.nombre_telechargement</span></a>
+                            </li>
+                            <li><a href="#" class="fa fa-heart-o"><span></span></a></li>
+                            <li><a href="#" class="fa fa-comment-o"><span>8</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>

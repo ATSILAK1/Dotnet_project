@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Details";
+    var user = Session["user"] as WebApplication1.Models.utilisateur;
 }
 
-<h2>Details</h2>
+<h2>Details </h2>
 
 <div>
     <h4>u_application</h4>
@@ -47,7 +48,7 @@
         </dd>
 
         <dt>
-           Category
+            Category
         </dt>
 
         <dd>
@@ -55,7 +56,7 @@
         </dd>
 
         <dt>
-            Owner 
+            Owner
         </dt>
 
         <dd>
@@ -66,21 +67,47 @@
 
 
 </div>
-@{
-    foreach (var com in Model.review)
-    {
- <div>
-     @com.Commentaire
- </div> }
-}
+<div style="border-radius:10px;
+margin-right:50%;">
+    @{
+        foreach (var com in Model.review)
+        {
+            if (com.note == 1)
+            {
+                <div style="background-color : lime">
+                    @com.Commentaire
+                </div>
+            }
+            else if (com.note == 0)
+            {
+
+                <div style="background-color : lightcoral">
+                    @com.Commentaire
+                </div>
+            }
+
+            else
+            {
+                <div style="background-color:#ff8164">
+                    @com.Commentaire
+                </div>
+            }
+        }
+    }
+</div>    
 
 <p>
+    
+    @if (user == Model.utilisateur || user.u_role =="Admin")
+    {
+    @Html.ActionLink("Delete", "Delete", "u_application", new { id = Model.id_app }, new {@class = "btn btn-danger"})
+    }
     @Html.ActionLink("Edit", "Edit", new { id = Model.id_app }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 <form method="post" action=@Url.Action("Create","Reviews",new { id = Model.id_app})>
-   @Html.AntiForgeryToken() 
-    
+    @Html.AntiForgeryToken()
+
     <textarea name="commentaire" placeholder=" Your Comments ... " cols="50" rows="10"></textarea>
     <button type="submit" class="btn btn-success"> share </button>
 </form>

@@ -125,7 +125,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Login()
         {
-            
+            ViewBag.connect = "";
             string username = Request.Form["nom_utilisateur"];
             string password = Request.Form["mot_de_passe"];
             utilisateur user = null;
@@ -137,14 +137,11 @@ namespace WebApplication1.Controllers
                 Session["role"] = user.u_role;
             }catch(System.InvalidOperationException )
             {
-                user = null;
+                user = null;ViewBag.connect = "Error";return View();
             }
-                
-                if (user == null)
-            {
-                ViewBag.connect = "Not Connected";
-                return View();
-            }
+            
+           
+             
             return RedirectToAction("index", "u_application");
         }
         public ActionResult deconnexion()

@@ -1,20 +1,29 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Remoting.Messaging;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls.WebParts;
 using WebApplication1.Models;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace WebApplication1.Controllers
 {
     public class reviewsController : Controller
     {
         private profinsemEntities db = new profinsemEntities();
+
+    
+
+
 
         // GET: reviews
         public ActionResult Index()
@@ -46,6 +55,34 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        private int predictCommentScore(string comment)
+        {
+            var url = "https://localhost:50826/predict";
+
+            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpRequest.Method = "POST";
+
+            httpRequest.ContentType = "application/json";
+
+            var data = "{\"new_reviews\": \"" + comment + "\",\"score\": 0}";
+ 
+            using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
+            {
+                streamWriter.Write(data);
+            }
+
+            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            JObject json;
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                json = JObject.Parse(result);
+
+            }
+            return Convert.ToInt32(json["prediction"]);
+        }
+
+
         // POST: reviews/Create
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -60,6 +97,10 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
+                int score = predictCommentScore(commentaire);
+                TempData["score"] = score;
+                
+                review.note = score;
                 db.review.Add(review);
                 db.SaveChanges();
                 return RedirectToAction("Details","u_application",new {id=id});

@@ -1,20 +1,21 @@
 ﻿@model WebApplication1.Models.utilisateur
 @{
     ViewBag.Title = "Login";
+   
 }
-
+<link href="~/Content/StyleSheet2.css" rel="stylesheet" />
 
 <form method="post" action=@Url.Action("Login","Utilisateurs")>
-    <div class="form-control">
-        <label>  nom d'utilisateur </label>
-        <input type="text" name="nom_utilisateur"/>
+    <div class="form-group">
+        
+        <input type="text" name="nom_utilisateur" placeholder="Username"  class="form-control" />
     </div>
-    <div class="form-control">
-        <label> mot de passe </label>
-        <input type="password" name="mot_de_passe"/>
+    <div class="form-group">
+        
+        <input type="password" name="mot_de_passe" placeholder="Password"  class="form-control" />
     </div>
 
-   @ViewBag.connect;
+  
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

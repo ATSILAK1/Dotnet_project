@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
             string filename = Path.GetFileName(u_application.img.FileName);
             string fullpath = Path.Combine(path, filename);
             u_application.img.SaveAs(fullpath);
-            u_application.app_img = "/images/" + filename;
+            u_application.app_img = "/images/"+filename;
             u_application.date_ajout = DateTime.Now.Date;
             u_application.nombre_telechargement = 0;
             u_application.id_user = user.id_user;
@@ -75,11 +75,9 @@ namespace WebApplication1.Controllers
                 user.u_role = "prop";
             if (ModelState.IsValid)
             {
-                
-
                 db.u_application.Add(u_application);
                 db.SaveChanges();
-            return RedirectToAction("Index","u_application");
+                return RedirectToAction("Index","u_application");
             }
 
             ViewBag.categorie = new SelectList(db.categorie, "id_cat", "nom_categorie", u_application.categorie);
@@ -160,12 +158,11 @@ namespace WebApplication1.Controllers
         }
         public ActionResult telechargerapp(int id)
         {
-            try
-            {
+            
                 var u_application = db.u_application.Find(id);
                 utilisateur user  = null;
                 bibliotheque bib  = null ;
-                u_application.nombre_telechargement++;
+                
                 try
                 {
                     user = Session["user"] as utilisateur;
@@ -175,7 +172,7 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("login", "utilisateurs");
                 }
                 Bibliotheque_app appbib = new Bibliotheque_app();
-                db.Bibliotheque_app.Find(user.bibliotheque_id_bib, u_application.id_app);
+                var rel = db.Bibliotheque_app.Where( c => (c.id_bib ==  user.bibliotheque_id_bib) && (c.id_app == u_application.id_app));
                 string path = Server.MapPath("~/txt/");
 
 
@@ -183,40 +180,52 @@ namespace WebApplication1.Controllers
                 Response.AppendHeader("Content-Disposition", "attachment; filename="+u_application.nom_app+".txt");
                 Response.TransmitFile(path+"TextFile1.txt");
                 Response.End();
+             
+             try
+            {   u_application.nombre_telechargement++;
+                appbib.id_bib = bib.id_bib ;
+                appbib.id_app = u_application.id_app;
+                appbib.date_telechargement = DateTime.Now.Date;
 
-
-                try
+                if (rel == null) 
                 {
-                    appbib.u_application = u_application;
-                    appbib.bibliotheque = bib;
-                    appbib.date_telechargement = DateTime.Now.Date;
+                    
                     db.Bibliotheque_app.Add(appbib);
-                    db.SaveChanges();
-                    return RedirectToAction("index", "u_application");
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException)
-                {
+                    
+                    db.SaveChanges(); 
+                     
+                }return RedirectToAction("index", "u_application");
 
-                    db.u_application.AddOrUpdate(u_application);
-                    return RedirectToAction("index", "u_application");
-                }
-                
             }
-            catch (DbEntityValidationException e)
+            catch(Exception e)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    System.Diagnostics.Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        System.Diagnostics.Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                
+                //db.Bibliotheque_app.Remove(appbib);
+                //db.SaveChanges();
+                //db.Bibliotheque_app.Add(appbib);
+                //db.SaveChanges();
+                //return RedirectToAction("index", "u_application");
+                return HttpNotFound();
             }
-            return View();
+            
+            
+                
+                    
+             
+            
+           
+        }
+
+        public ActionResult Library()
+        {
+            var user = Session["user"] as utilisateur;
+            var bib = db.Bibliotheque_app.Where(c => c.id_bib == user.bibliotheque_id_bib);
+            List<u_application> app = new List<u_application>();
+            foreach(var item in bib)
+            {
+                app.Add(item.u_application);
+            }
+            
+            return View(app);
         }
     
         protected override void Dispose(bool disposing)

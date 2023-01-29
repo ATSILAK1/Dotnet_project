@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var user = Session["user"] as WebApplication1.Models.utilisateur;
+}
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -17,14 +20,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nom d'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("THE ALL-STORE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "u_application")</li>
+                        @if (user == null)
+                        {
+                         <li>@Html.ActionLink("LogIn", "Login", "utilisateurs")</li>
+                        <li>@Html.ActionLink("Sign in","create","utilisateurs")</li>
+                         }
+                        @if (user != null)
+                        {
+                            if (user.u_role != "user" )
+                            {
 
+                            <li>@Html.ActionLink("New Application", "Create", "u_application")</li>
+                            <li>@Html.ActionLink("Your apps", "Library", "u_application")</li>
+
+                            }
+                            if (user.u_role == "Admin" )
+                            {
+                                <li>@Html.ActionLink("Users", "Index", "utilisateurs")</li>
+                            }
+                            <li>@Html.ActionLink("Sign Out", "Deconnexion", "utilisateurs")</li>
+                        }
                 </ul>
                 
             </div>

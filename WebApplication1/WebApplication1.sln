@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{7B8D4A83-70B9-4D0A-B2B2-1904B133C1C1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLModel1_WebApi1", "MLModel1_WebApi1\MLModel1_WebApi1.csproj", "{1F66E4C0-3ED8-408E-B5E0-1E9315CE2DDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7B8D4A83-70B9-4D0A-B2B2-1904B133C1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B8D4A83-70B9-4D0A-B2B2-1904B133C1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B8D4A83-70B9-4D0A-B2B2-1904B133C1C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F66E4C0-3ED8-408E-B5E0-1E9315CE2DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F66E4C0-3ED8-408E-B5E0-1E9315CE2DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F66E4C0-3ED8-408E-B5E0-1E9315CE2DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F66E4C0-3ED8-408E-B5E0-1E9315CE2DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
